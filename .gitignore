@@ -1,0 +1,3 @@
+.idea/sonarlint/
+__pycache__/
+db.sqlite3

@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-s4+37@7o#z6v#ib!=5i265()bap5fmkfrx)gy4+z^1$6m-zc&1'
+SECRET_KEY = os.environ.get('SECRET_KEY', None)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -86,8 +88,12 @@ WSGI_APPLICATION = 'todo_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get('MARIADB_DATABASE', 'todo'),
+        'USER': os.environ.get('MARIADB_USER', None),
+        'PASSWORD': os.environ.get('MARIADB_PASSWORD', None),
+        'HOST': os.environ.get('MARIADB_DATABASE_HOST', 'db'),
+        'PORT': os.environ.get('MARIADB_DATABASE_PORT', 3306),
     }
 }
 
